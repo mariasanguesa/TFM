@@ -8,7 +8,7 @@ Dialog.addMessage("Choose channel numbers");
 Dialog.addNumber("DAPI", cDAPI);	
 Dialog.addNumber("CD8", cCD8);	
 Dialog.addNumber("Batf3", cBatf3);
-
+//Probando el guittttt
 Dialog.show();	
 cDAPI= Dialog.getNumber();
 cCD8= Dialog.getNumber();
