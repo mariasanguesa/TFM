@@ -125,7 +125,7 @@ run("Subtract Background...", "rolling=200 stack");
 run("Gaussian Blur...", "sigma=4 stack");
 run("Threshold...");
 	//thTissue=2;
-setThreshold(thTissue, 255);
+setThreshold(5, 255);
 setOption("BlackBackground", false);
 run("Convert to Mask", "method=Default background=Dark");
 run("Invert LUT");
