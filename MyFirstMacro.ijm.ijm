@@ -45,7 +45,7 @@ for (j=0; j<L; j++){
 		run("Merge Channels...", "c1=dapi"+name+" c4=cd8"+name+" c5=batf3"+name+" create");
 		rename("merge"+name);
 		selectImage("merge"+name);
-		saveAs("Jpeg", OutDir+File.separator+"3Channel"+name);
+		saveAs("JPeg", OutDir+File.separator+"3Channel"+name);
 
 	}
 }
