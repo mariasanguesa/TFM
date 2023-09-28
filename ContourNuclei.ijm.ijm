@@ -17,7 +17,7 @@ for (j=0; j<L; j++){
 
 		name=list[j];
 
-		run("Bio-Formats Importer", "open="+InDir+name+" autoscale color_mode=Default rois_import=[ROI manager] view=Hyperstack stack_order=XYCZT series_1");
+		run("Bio-Formats Importer", "open="+InDir+name+" autoscale color_mode=Composite rois_import=[ROI manager] view=Hyperstack stack_order=XYCZT series_1");
 	
 		rename("orig-"+name);
 		run("Make Composite", "display=Composite");
@@ -26,10 +26,15 @@ for (j=0; j<L; j++){
 
 		run("Duplicate...", "title=dapiMask-"+name);
 		
-		run("Smooth");
+		/*run("Gaussian Blur...", "sigma=2");
 		setAutoThreshold("Default dark");
 		run("Convert to Mask");
-		//run("Watershed");
+		run("Watershed");
+		run("Median...", "radius=1");*/
+		//run("Gaussian Blur...", "sigma=2");
+		setAutoThreshold("Default dark");
+		run("Convert to Mask");
+		run("Watershed");
 		
 		selectImage("dapi-"+name);
 		run("Command From Macro", "command=[de.csbdresden.stardist.StarDist2D], args=['input':'dapi-"+name+"', 'modelChoice':'Versatile (fluorescent nuclei)', 'normalizeInput':'true', 'percentileBottom':'1.5000000000000004', 'percentileTop':'100.0', 'probThresh':'0.479071', 'nmsThresh':'0.3', 'outputType':'Both', 'nTiles':'1', 'excludeBoundary':'2', 'roiPosition':'Automatic', 'verbose':'false', 'showCsbdeepProgress':'false', 'showProbAndDist':'false'], process=[false]");
