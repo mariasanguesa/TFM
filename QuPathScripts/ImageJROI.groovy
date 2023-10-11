@@ -1,6 +1,9 @@
 import ij.plugin.frame.RoiManager
 
-def path = buildFilePath('C:/Users/maria.sanguesa/Desktop/Pruebas', "rois.zip")
+def imageData = getCurrentImageData()
+def name = GeneralTools.getNameWithoutExtension(imageData.getServer().getMetadata().getName())
+
+def path = buildFilePath('C:/Users/msang/OneDrive - UPNA/Imágenes TFM/ROIs', "ROIs"+name+".zip")
 
 def annotations = getAnnotationObjects()
 def roiMan = new RoiManager(false)
