@@ -1,34 +1,34 @@
-roiCount = roiManager("Count");
-waitForUser("Título", "Selecciona área.");
-getSelectionCoordinates(xarea, yarea);
+// Primero cargo la máscara con las zonas que quiero eliminar
+name = getTitle();
+MyTitle = split(name,"-");
+MyTitle_short = MyTitle[0];
 
-for (roi=0;roi<roiCount;roi++){
-	roiManager("select",roi);
-	Roi.getContainedPoints(xroi, yroi);
-	for (x = 0; x < xroi.length; x++) {
-		for (y = 0; y < yroi.length; y++) {
-			if(contains(xarea,xroi[x])){
-				if(contains(yarea,yroi[y])){
-					print("si");
-				}
-			}
+roiManager("Open", "C:/Users/maria.sanguesa/OneDrive - UPNA/Imágenes TFM/ROIsToExclude/ROIs_exclude_"+MyTitle_short+".zip");
+roiManager("Combine");
+run("Create Mask");
+rename("Mask_"+MyTitle_short);
+
+roiManager("Deselect");
+roiManager("Delete");
+
+roiManager("Open", "C:/Users/maria.sanguesa/OneDrive - UPNA/Imágenes TFM/ROIs/ROIs"+MyTitle_short+".zip");
+
+roiManager("Measure");
+
+getDimensions(width, height, channels, slices, frames);
+newImage(MyTitle_short+"-mask_exclude", "16-bit black", width, height, 1);
+roiTotal = roiManager("count");
+
+for (j=0; j<roiTotal; j++){
+	roiManager("Select", j);
+	grayLevel = getResult("Mean",j);
+	Roi.getContainedPoints(xpoints, ypoints);
+	if(grayLevel==0){
+		for (i = 0; i < xpoints.length; i++) {
+			setPixel(xpoints[i], ypoints[i], j);
 		}
 	}
+
 }
 
-function contains( array, value ) {
-    for (i=0; i<array.length; i++) 
-        if ( array[i] == value ) return true;
-    return false;
-}
-
-
-roiManager("Combine");
-roiManager("Add");
-makeRectangle(1662, 813, 60, 75);
-Roi.setPosition(1);
-roiManager("Add");
-roiManager("Select", newArray(3246,3247));
-roiManager("AND");
-roiManager("Add");
-roiManager("delete");
+saveAs("Tiff","C:/Users/maria.sanguesa/OneDrive - UPNA/Imágenes TFM/Masks_Exclude/" +MyTitle_short+"-mask_exclude");

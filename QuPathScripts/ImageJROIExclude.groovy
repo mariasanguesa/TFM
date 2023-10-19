@@ -5,7 +5,7 @@ def name = GeneralTools.getNameWithoutExtension(imageData.getServer().getMetadat
 MyTitle = name.split("-");
 name = MyTitle[0];
 // Cuidado con el nombre de usuario: cambiar segun el PC
-def path = buildFilePath('C:/Users/maria.sanguesa/OneDrive - UPNA/Imágenes TFM/ROIs', "ROIs"+name+".zip")
+def path = buildFilePath('C:/Users/maria.sanguesa/OneDrive - UPNA/Imágenes TFM/ROIsToExclude', "ROIs_exclude_"+name+".zip")
 
 def annotations = getAnnotationObjects()
 def roiMan = new RoiManager(false)
